@@ -9,7 +9,7 @@ from pyrogram.errors import PeerIdInvalid, BadRequest, FloodWait, FileReferenceE
 from config import PyroConf
 from logger import LOGGER
 
-from helpers.utils import processMediaGroup, send_media, get_progress_text
+from helpers.utils import processMediaGroup, send_media, get_progress_text, edit_progress, get_resume_hint
 from helpers.files import get_download_path, fileSizeLimit, get_readable_file_size, get_readable_time, cleanup_download
 from helpers.msg import getChatMsgID, get_file_name, get_parsed_msg, clean_caption, extract_youtube_keyboard, apply_caption_rules
 
@@ -75,15 +75,15 @@ async def handle_download(bot: Client, user: Client, message: Message, post_url:
         if chat_message.media_group_id:
             if progress_msg and batch_stats:
                 batch_stats["processed"] += 1
-                try: await progress_msg.edit(get_progress_text("Grup Media", "Banyak File", batch_stats))
-                except Exception: pass
+                batch_stats["last_url"] = post_url
+                await edit_progress(progress_msg, "Grup Media", "Banyak File", batch_stats)
             elif not progress_msg:
-                progress_msg = await message.reply(get_progress_text("Grup Media", "Banyak File"))
+                progress_msg = await message.reply(get_progress_text("Grup Media", "Banyak File"), parse_mode=ParseMode.HTML)
 
             if not await processMediaGroup(chat_message, user, bot, message, dl_sem, progress_msg, batch_stats, target_chat_id, target_topic_id, caption_rules):
                 if progress_msg:
                     try:
-                        await progress_msg.edit("❌ <b>Gagal memproses Grup Media</b>")
+                        await progress_msg.edit("❌ <b>Gagal memproses Grup Media</b>", parse_mode=ParseMode.HTML)
                         await asyncio.sleep(2)
                     except Exception: pass
             
@@ -105,10 +105,10 @@ async def handle_download(bot: Client, user: Client, message: Message, post_url:
                 
                 if progress_msg and batch_stats:
                     batch_stats["processed"] += 1
-                    try: await progress_msg.edit(get_progress_text(filename, file_size_str, batch_stats))
-                    except Exception: pass
+                    batch_stats["last_url"] = post_url
+                    await edit_progress(progress_msg, filename, file_size_str, batch_stats)
                 elif not progress_msg:
-                    progress_msg = await message.reply(get_progress_text(filename, file_size_str))
+                    progress_msg = await message.reply(get_progress_text(filename, file_size_str), parse_mode=ParseMode.HTML)
                 
                 try:
                     media_path = await chat_message.download(file_name=download_path)
@@ -145,6 +145,9 @@ async def handle_download(bot: Client, user: Client, message: Message, post_url:
         elif chat_message.text:
             if batch_stats:
                 batch_stats["processed"] += 1
+                batch_stats["last_url"] = post_url
+                if progress_msg:
+                    await edit_progress(progress_msg, f"teks #{message_id}", "—", batch_stats)
             
             parsed_text = await get_parsed_msg(chat_message)
             parsed_text = clean_caption(parsed_text)
@@ -185,15 +188,22 @@ async def execute_batch(bot: Client, user: Client, original_msg: Message, job: d
     try: await user.get_chat(start_chat)
     except Exception: pass
 
-    loading = await original_msg.reply("📥 <b>Batch download dimulai...</b>")
+    loading = await original_msg.reply("📥 <b>Batch download dimulai...</b>", parse_mode=ParseMode.HTML)
     LOGGER(__name__).info(f"Batch Process Started | Range: {start_id} to {end_id}")
     try: await loading.pin(disable_notification=True, both_sides=True)
     except Exception: pass
 
     downloaded = skipped = failed = 0
     processed_media_groups = set()
-    
-    batch_stats = {"total": (end_id - start_id) + 1, "processed": 0}
+    last_url = f"{prefix}/{start_id}"
+
+    batch_stats = {
+        "total": (end_id - start_id) + 1,
+        "processed": 0,
+        "current_url": last_url,
+        "last_url": last_url,
+    }
+    await edit_progress(loading, "Memulai...", "—", batch_stats)
 
     current_id = start_id
     
@@ -213,21 +223,30 @@ async def execute_batch(bot: Client, user: Client, original_msg: Message, job: d
         ref_expired = False
 
         for chat_msg in messages:
+            msg_id = getattr(chat_msg, "id", None)
+            url = f"{prefix}/{msg_id}" if msg_id else f"{prefix}/{current_id}"
+            batch_stats["current_url"] = url
+            batch_stats["last_url"] = url
+            last_url = url
+
             if not chat_msg or chat_msg.empty:
                 skipped += 1
                 batch_stats["processed"] += 1
+                await edit_progress(loading, f"kosong #{msg_id or current_id}", "—", batch_stats)
                 continue
             
             if chat_msg.media_group_id:
                 if chat_msg.media_group_id in processed_media_groups:
                     skipped += 1
                     batch_stats["processed"] += 1
+                    await edit_progress(loading, f"grup media #{msg_id}", "dilewati", batch_stats)
                     continue
                 processed_media_groups.add(chat_msg.media_group_id)
 
             if not (chat_msg.media_group_id or chat_msg.media or chat_msg.text or chat_msg.caption):
                 skipped += 1
                 batch_stats["processed"] += 1
+                await edit_progress(loading, f"tanpa media #{msg_id}", "—", batch_stats)
                 continue
                 
             if "all" not in filters_selected:
@@ -239,9 +258,10 @@ async def execute_batch(bot: Client, user: Client, original_msg: Message, job: d
                 ]):
                     skipped += 1
                     batch_stats["processed"] += 1
+                    await edit_progress(loading, f"difilter #{msg_id}", "—", batch_stats)
                     continue
 
-            url = f"{prefix}/{chat_msg.id}"
+            await edit_progress(loading, f"#{msg_id}", "menyiapkan...", batch_stats)
             task = track_task(handle_download(bot, user, original_msg, url, chat_msg, loading, batch_stats, target_chat, target_topic, caption_rules))
             
             try:
@@ -256,7 +276,8 @@ async def execute_batch(bot: Client, user: Client, original_msg: Message, job: d
                     "━━━━━━━━━━━━━━━━━━━\n"
                     f"📥 <b>Berhasil:</b> {downloaded} posting\n"
                     f"⏭️ <b>Dilewati:</b> {skipped} (difilter)\n"
-                    f"❌ <b>Gagal:</b> {failed} error",
+                    f"❌ <b>Gagal:</b> {failed} error"
+                    + get_resume_hint(last_url),
                     parse_mode=ParseMode.HTML
                 )
             except FileReferenceExpired:
@@ -291,7 +312,8 @@ async def execute_batch(bot: Client, user: Client, original_msg: Message, job: d
         "━━━━━━━━━━━━━━━━━━━\n"
         f"📥 <b>Total:</b> {downloaded} posting\n"
         f"⏭️ <b>Dilewati:</b> {skipped} (difilter)\n"
-        f"❌ <b>Gagal:</b> {failed} error",
+        f"❌ <b>Gagal:</b> {failed} error"
+        + (get_resume_hint(last_url) if failed else ""),
         parse_mode=ParseMode.HTML
     )
 

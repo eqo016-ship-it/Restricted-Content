@@ -29,6 +29,31 @@ from helpers.msg import (
 )
 from logger import LOGGER
 
+async def edit_progress(progress_msg, filename, file_size="—", batch_stats=None, warning=""):
+    """Update pesan progress batch dengan parse_mode HTML."""
+    if not progress_msg:
+        return
+    try:
+        from pyrogram.enums import ParseMode
+        await progress_msg.edit(
+            get_progress_text(filename, file_size, batch_stats, warning),
+            parse_mode=ParseMode.HTML,
+            disable_web_page_preview=True,
+        )
+    except Exception:
+        pass
+
+
+def get_resume_hint(last_url: str) -> str:
+    if not last_url:
+        return ""
+    return (
+        f"\n\n🔁 <b>Lanjutkan dari link ini:</b>\n"
+        f"<code>/batch {last_url}</code>\n"
+        f"<i>Lalu kirim link akhir yang sama seperti sebelumnya.</i>"
+    )
+
+
 def get_progress_text(filename, file_size="Ukuran tidak diketahui", batch_stats=None, warning=""):
     if len(filename) > 50:
         name_parts = filename.rsplit('.', 1)
@@ -61,6 +86,10 @@ def get_progress_text(filename, file_size="Ukuran tidak diketahui", batch_stats=
         f"├ ⚡ <b>Sekarang:</b> {current}\n"
         f"└ ⏳ <b>Sisa:</b> {rem}"
     )
+
+    current_url = batch_stats.get("current_url")
+    if current_url:
+        text += f"\n\n<b>Sedang proses:</b>\n<code>{current_url}</code>"
     
     if warning:
         text += f"\n<blockquote>⚠️ <b>{warning}</b></blockquote>"
@@ -248,7 +277,7 @@ async def send_media(
             LOGGER(__name__).warning(f"FloodWait: Sleeping {wait_msg}")
             if progress_msg:
                 try:
-                    await progress_msg.edit(get_progress_text(filename, file_size_str, batch_stats, f"Rate limit: jeda {wait_msg}..."))
+                    await edit_progress(progress_msg, filename, file_size_str, batch_stats, f"Rate limit: jeda {wait_msg}...")
                 except Exception:
                     pass
             await asyncio.sleep(wait_s + 1)
@@ -258,7 +287,7 @@ async def send_media(
             LOGGER(__name__).warning(f"TimeoutError: Request timed out. Retrying ({retry_count}/{max_retries})")
             if progress_msg:
                 try:
-                    await progress_msg.edit(get_progress_text(filename, file_size_str, batch_stats, f"Masalah jaringan: coba lagi {retry_count}/{max_retries}..."))
+                    await edit_progress(progress_msg, filename, file_size_str, batch_stats, f"Masalah jaringan: coba lagi {retry_count}/{max_retries}...")
                 except Exception:
                     pass
             await asyncio.sleep(5)
@@ -270,7 +299,7 @@ async def send_media(
             if retry_count <= max_retries:
                 if progress_msg:
                     try:
-                        await progress_msg.edit(get_progress_text(filename, file_size_str, batch_stats, f"Masalah jaringan: coba lagi {retry_count}/{max_retries}..."))
+                        await edit_progress(progress_msg, filename, file_size_str, batch_stats, f"Masalah jaringan: coba lagi {retry_count}/{max_retries}...")
                     except Exception:
                         pass
                 await asyncio.sleep(3)
@@ -329,7 +358,7 @@ async def download_single_media(msg, user_client, semaphore, progress_msg=None, 
                 pre_file_size = getattr(media_obj, "file_size", 0) if media_obj else 0
                 file_size_str = get_readable_file_size(pre_file_size)
                 try:
-                    await progress_msg.edit(get_progress_text(filename, file_size_str, batch_stats, f"Rate limit: jeda {wait_msg}..."))
+                    await edit_progress(progress_msg, filename, file_size_str, batch_stats, f"Rate limit: jeda {wait_msg}...")
                 except Exception:
                     pass
             await asyncio.sleep(wait_s + 1)
@@ -398,7 +427,7 @@ async def processMediaGroup(chat_message, user_client, bot, message, semaphore, 
                 LOGGER(__name__).warning(f"FloodWait sending group: Sleeping {wait_msg}")
                 if progress_msg:
                     try:
-                        await progress_msg.edit(get_progress_text("Grup Media", "Banyak File", batch_stats, f"Rate limit: jeda {wait_msg}..."))
+                        await edit_progress(progress_msg, "Grup Media", "Banyak File", batch_stats, f"Rate limit: jeda {wait_msg}...")
                     except Exception:
                         pass
                 await asyncio.sleep(wait_s + 1)
