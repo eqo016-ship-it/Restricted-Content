@@ -1,0 +1,5 @@
+pyrofork
+TgCrypto
+psutil
+python-dotenv
+nest_asyncio
