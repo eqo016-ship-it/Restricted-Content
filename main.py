@@ -12,7 +12,7 @@ from config import PyroConf
 from logger import LOGGER
 
 from helpers.files import get_readable_file_size, get_readable_time
-from helpers.msg import getChatMsgID, get_parsed_msg, apply_caption_rules
+from helpers.msg import getChatMsgID, get_parsed_msg, apply_caption_rules, resolve_destination
 from helpers.jobs import execute_batch, execute_autoforward, handle_download, track_task, get_running_tasks
 from helpers.keyboards import get_start_keyboard, get_caption_keyboard, get_filter_keyboard, get_destination_keyboard
 from helpers.health import start_health_server
@@ -217,8 +217,11 @@ async def batch_destination_callback(bot: Client, callback_query: CallbackQuery)
     elif action == "chan":
         WAITING_FOR_DEST[callback_query.from_user.id] = job
         await job["original_message"].reply(
-            "🔗 Kirim <b>link posting</b> dari channel/topik tujuan.\n"
-            "<i>Contoh: https://t.me/namachannel/123</i>",
+            "📤 Kirim <b>tujuan</b> channel/grup/topik (pilih salah satu format):\n\n"
+            "• <b>Link posting:</b> <code>https://t.me/namachannel/123</code>\n"
+            "• <b>ID chat:</b> <code>-1001234567890</code>\n"
+            "• <b>Username:</b> <code>@namachannel</code> atau <code>namachannel</code>\n\n"
+            "<i>Bot harus jadi admin di channel/grup tujuan.</i>",
             parse_mode=ParseMode.HTML
         )
 
@@ -317,12 +320,12 @@ async def handle_any_message(bot: Client, message: Message):
             return
 
         try:
-            target_chat_id, target_msg_id, target_topic_id = getChatMsgID(message.text)
+            target_chat_id, target_topic_id = await resolve_destination(bot, message.text)
             job["target_chat"] = target_chat_id
-            job["target_topic"] = target_topic_id 
+            job["target_topic"] = target_topic_id
             await trigger_caption_setup(bot, user, message, job)
         except Exception as e:
-            await message.reply(f"<b>❌ Gagal membaca link tujuan:\n{e}</b>", parse_mode=ParseMode.HTML)
+            await message.reply(f"<b>❌ Gagal membaca tujuan:\n{e}</b>", parse_mode=ParseMode.HTML)
         return
     
     if user_id in WAITING_FOR_CAPTION_RULE:
@@ -430,7 +433,7 @@ if __name__ == "__main__":
         log.info(f"Menggunakan proxy: {_PROXY['scheme']}://{_PROXY['hostname']}:{_PROXY['port']}")
 
     start_health_server(PyroConf.PORT)
-    log.info(f"Health server aktif di http://0.0.0.0:{PyroConf.PORT}/health")
+    log.info(f"Health server aktif di http://0.0.0.0:{PyroConf.PORT}/ok (UptimeRobot: keyword 'ok')")
     start_storage_cleaner(PyroConf.STORAGE_CLEANUP_INTERVAL)
     log.info(f"Auto clean storage aktif (setiap {PyroConf.STORAGE_CLEANUP_INTERVAL} menit)")
     log.info("Menghubungkan bot & user client...")

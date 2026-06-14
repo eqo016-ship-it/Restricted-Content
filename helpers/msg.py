@@ -1,4 +1,5 @@
 import re
+from pyrogram import Client
 from pyrogram.utils import get_channel_id
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
@@ -140,6 +141,52 @@ def getChatMsgID(link: str):
         raise ValueError("Kirim link posting Telegram yang valid (contoh: https://t.me/channel/123).")
 
     return chat_id, message_id, message_thread_id
+
+_POST_LINK_RE = re.compile(r"t\.me/.+/\d+", re.IGNORECASE)
+_PRIVATE_CHAT_LINK_RE = re.compile(r"t\.me/c/(\d+)/?$", re.IGNORECASE)
+_PUBLIC_CHAT_LINK_RE = re.compile(r"t\.me/(?!c/)([a-zA-Z][a-zA-Z0-9_]{3,})/?$", re.IGNORECASE)
+_CHAT_ID_RE = re.compile(r"^-?\d+$")
+_USERNAME_RE = re.compile(r"^@?[a-zA-Z][a-zA-Z0-9_]{3,}$")
+
+
+async def resolve_destination(bot: Client, text: str) -> tuple:
+    """Terima link posting, ID chat, atau username channel/grup tujuan."""
+    raw = (text or "").strip()
+    if not raw:
+        raise ValueError("Input tujuan kosong.")
+
+    if _POST_LINK_RE.search(raw):
+        chat_id, _, topic_id = getChatMsgID(raw)
+        return chat_id, topic_id
+
+    private_match = _PRIVATE_CHAT_LINK_RE.search(raw)
+    if private_match:
+        chat_id = get_channel_id(int(private_match.group(1)))
+        await bot.get_chat(chat_id)
+        return chat_id, None
+
+    if _CHAT_ID_RE.match(raw):
+        chat_id = int(raw)
+        if chat_id > 0:
+            chat_id = get_channel_id(chat_id)
+        await bot.get_chat(chat_id)
+        return chat_id, None
+
+    public_match = _PUBLIC_CHAT_LINK_RE.search(raw)
+    username = public_match.group(1) if public_match else raw.lstrip("@")
+
+    if _USERNAME_RE.match(f"@{username}"):
+        chat = await bot.get_chat(username)
+        return chat.id, None
+
+    raise ValueError(
+        "Format tujuan tidak dikenali. Kirim salah satu:\n"
+        "• Link posting: https://t.me/namachannel/123\n"
+        "• Link channel privat: https://t.me/c/1234567890/123\n"
+        "• ID chat: -1001234567890\n"
+        "• Username: @namachannel atau namachannel"
+    )
+
 
 def get_file_name(message_id: int, chat_message) -> str:
     def clean_name(name):

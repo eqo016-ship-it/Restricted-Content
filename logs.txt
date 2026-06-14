@@ -1,0 +1,166 @@
+[06:22:24 AM - INFO] - Bot Started!
+[06:23:32 AM - ERROR] - Bot Crashed: 0
+[06:23:32 AM - INFO] - Bot Stopped.
+[06:24:36 AM - INFO] - Bot Started!
+[06:25:44 AM - ERROR] - Bot Crashed: 0
+[06:28:14 AM - INFO] - Bot Started!
+[06:28:24 AM - INFO] - Bot Stopped.
+[06:28:32 AM - INFO] - Bot Started!
+[06:29:39 AM - ERROR] - Bot Crashed: 0
+[06:29:39 AM - INFO] - Bot Stopped.
+[06:39:37 AM - INFO] - Bot Started!
+[06:43:50 AM - INFO] - Bot Started!
+[06:44:58 AM - ERROR] - GAGAL TERHUBUNG KE SERVER TELEGRAM (KeyError: 0).
+Penyebab umum: jaringan/ISP memblokir koneksi MTProto Telegram.
+Solusi: Aktifkan VPN (mis. WARP/1.1.1.1) atau isi PROXY_* di file .env.
+[06:44:58 AM - INFO] - Bot Stopped.
+[06:47:39 AM - INFO] - Bot Started!
+[06:48:04 AM - ERROR] - Bot Crashed: 
+[06:48:04 AM - INFO] - Bot Stopped.
+[06:49:06 AM - INFO] - Bot Started!
+[06:49:38 AM - INFO] - Bot client terhubung: @fasfasfwwwbot
+[06:49:55 AM - INFO] - User client terhubung: Kudin (id=7852395628)
+[06:49:55 AM - INFO] - Bot siap menerima pesan. Kirim /start di chat bot.
+[06:51:49 AM - INFO] - Stop signal received (SIGINT). Exiting...
+[06:51:50 AM - INFO] - Stop signal received (SIGINT). Exiting...
+[06:51:50 AM - INFO] - Bot Stopped.
+[06:51:57 AM - INFO] - Bot Started!
+[06:52:02 AM - INFO] - Bot client terhubung: @fasfasfwwwbot
+[06:52:05 AM - INFO] - User client terhubung: Kudin (id=7852395628)
+[06:52:05 AM - INFO] - Bot siap menerima pesan. Kirim /start di chat bot.
+[06:52:32 AM - INFO] - Stop signal received (SIGINT). Exiting...
+[06:52:32 AM - INFO] - Bot Stopped.
+[06:52:39 AM - INFO] - Bot Started!
+[06:52:45 AM - INFO] - Bot client terhubung: @fasfasfwwwbot
+[06:52:47 AM - INFO] - User client terhubung: Kudin (id=7852395628)
+[06:52:47 AM - INFO] - Bot siap menerima pesan. Kirim /start di chat bot.
+[06:53:32 AM - INFO] - Stop signal received (SIGINT). Exiting...
+[06:53:32 AM - INFO] - Bot Stopped.
+[06:55:50 AM - INFO] - Bot Started!
+[06:55:54 AM - INFO] - Bot client terhubung: @fasfasfwwwbot
+[06:55:58 AM - INFO] - User client terhubung: Kudin (id=7852395628)
+[06:55:58 AM - INFO] - Bot siap menerima pesan. Kirim /start di chat bot.
+[07:00:49 AM - INFO] - Bot Started!
+[07:00:49 AM - INFO] - Menghubungkan bot & user client...
+[07:03:55 AM - INFO] - Batch Process Started | Range: 3817 to 3829
+[07:03:56 AM - INFO] - Downloading media: 3817.jpg (Size: 152.01 KB)
+[07:03:59 AM - INFO] - Uploading media: 3817.jpg (Size: 152.01 KB)
+[07:04:03 AM - INFO] - Finished Processing: https://t.me/SubDramaJPG/3817
+[07:04:08 AM - INFO] - Downloading media: 3818.jpg (Size: 66.16 KB)
+[07:04:12 AM - INFO] - Uploading media: 3818.jpg (Size: 66.16 KB)
+[07:04:15 AM - INFO] - Finished Processing: https://t.me/SubDramaJPG/3818
+[07:04:20 AM - INFO] - Downloading media: 3819.jpg (Size: 62.54 KB)
+[07:04:24 AM - INFO] - Uploading media: 3819.jpg (Size: 62.54 KB)
+[07:04:27 AM - INFO] - Finished Processing: https://t.me/SubDramaJPG/3819
+[07:04:32 AM - INFO] - Downloading media: 3820.jpg (Size: 73.66 KB)
+[07:04:35 AM - INFO] - Uploading media: 3820.jpg (Size: 73.66 KB)
+[07:04:39 AM - INFO] - Finished Processing: https://t.me/SubDramaJPG/3820
+[07:04:44 AM - INFO] - Downloading media: 3821.jpg (Size: 116.96 KB)
+[07:04:48 AM - INFO] - Uploading media: 3821.jpg (Size: 116.96 KB)
+[07:04:52 AM - INFO] - Finished Processing: https://t.me/SubDramaJPG/3821
+[07:04:57 AM - INFO] - Downloading media: 3822.jpg (Size: 58.01 KB)
+[07:05:03 AM - INFO] - Uploading media: 3822.jpg (Size: 58.01 KB)
+[07:05:05 AM - INFO] - Finished Processing: https://t.me/SubDramaJPG/3822
+[07:05:10 AM - INFO] - Downloading media: 3823.jpg (Size: 94.70 KB)
+[07:05:14 AM - INFO] - Uploading media: 3823.jpg (Size: 94.70 KB)
+[07:05:20 AM - INFO] - Finished Processing: https://t.me/SubDramaJPG/3823
+[07:05:25 AM - INFO] - Downloading media: 3824.jpg (Size: 68.04 KB)
+[07:05:29 AM - INFO] - Uploading media: 3824.jpg (Size: 68.04 KB)
+[07:05:33 AM - INFO] - Finished Processing: https://t.me/SubDramaJPG/3824
+[07:05:38 AM - INFO] - Downloading media: 3825.jpg (Size: 72.42 KB)
+[07:05:45 AM - INFO] - Uploading media: 3825.jpg (Size: 72.42 KB)
+[07:05:48 AM - INFO] - Finished Processing: https://t.me/SubDramaJPG/3825
+[07:05:53 AM - INFO] - Downloading media: 3826.jpg (Size: 79.17 KB)
+[07:05:56 AM - INFO] - Uploading media: 3826.jpg (Size: 79.17 KB)
+[07:06:02 AM - INFO] - Finished Processing: https://t.me/SubDramaJPG/3826
+[07:06:07 AM - INFO] - Downloading media: 3827.jpg (Size: 82.25 KB)
+[07:06:12 AM - INFO] - Uploading media: 3827.jpg (Size: 82.25 KB)
+[07:06:15 AM - INFO] - Finished Processing: https://t.me/SubDramaJPG/3827
+[07:06:20 AM - INFO] - Downloading media: 3828.jpg (Size: 98.01 KB)
+[07:06:25 AM - INFO] - Uploading media: 3828.jpg (Size: 98.01 KB)
+[07:06:30 AM - INFO] - Finished Processing: https://t.me/SubDramaJPG/3828
+[07:06:35 AM - INFO] - Downloading media: 3829.jpg (Size: 51.82 KB)
+[07:06:38 AM - INFO] - Uploading media: 3829.jpg (Size: 51.82 KB)
+[07:06:42 AM - INFO] - Finished Processing: https://t.me/SubDramaJPG/3829
+[07:06:48 AM - INFO] - Batch Process Completed | Total: 13 | Skipped: 0 | Failed: 0
+[07:12:24 AM - INFO] - Bot Started!
+[07:12:24 AM - INFO] - Health server aktif di http://0.0.0.0:8080/health
+[07:12:24 AM - INFO] - Menghubungkan bot & user client...
+[07:21:35 AM - INFO] - Bot Started!
+[07:21:35 AM - INFO] - Health server aktif di http://0.0.0.0:8080/health
+[07:21:35 AM - INFO] - Auto clean storage aktif (setiap 15 menit)
+[07:21:35 AM - INFO] - Menghubungkan bot & user client...
+[07:22:48 AM - INFO] - Batch Process Started | Range: 213 to 250
+[07:22:51 AM - INFO] - Downloading media: 213.jpg (Size: 84.85 KB)
+[07:22:55 AM - INFO] - Uploading media: 213.jpg (Size: 84.85 KB)
+[07:22:57 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/213
+[07:23:03 AM - INFO] - Downloading media: 215.jpg (Size: 75.91 KB)
+[07:23:06 AM - INFO] - Uploading media: 215.jpg (Size: 75.91 KB)
+[07:23:08 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/215
+[07:23:14 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/216
+[07:23:20 AM - INFO] - Downloading media: 217.jpg (Size: 76.60 KB)
+[07:23:25 AM - INFO] - Uploading media: 217.jpg (Size: 76.60 KB)
+[07:23:27 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/217
+[07:23:33 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/219
+[07:23:39 AM - INFO] - Downloading media: 222.jpg (Size: 86.33 KB)
+[07:23:43 AM - INFO] - Uploading media: 222.jpg (Size: 86.33 KB)
+[07:23:47 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/222
+[07:23:52 AM - INFO] - Downloading media: 223.jpg (Size: 182.21 KB)
+[07:23:55 AM - INFO] - Uploading media: 223.jpg (Size: 182.21 KB)
+[07:23:59 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/223
+[07:24:04 AM - INFO] - Downloading media: 224.jpg (Size: 34.25 KB)
+[07:24:06 AM - INFO] - Uploading media: 224.jpg (Size: 34.25 KB)
+[07:24:09 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/224
+[07:24:14 AM - INFO] - Downloading media: 225.jpg (Size: 195.91 KB)
+[07:24:17 AM - INFO] - Uploading media: 225.jpg (Size: 195.91 KB)
+[07:24:21 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/225
+[07:24:26 AM - INFO] - Downloading media: 226.jpg (Size: 84.32 KB)
+[07:24:29 AM - INFO] - Uploading media: 226.jpg (Size: 84.32 KB)
+[07:24:37 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/226
+[07:24:44 AM - INFO] - Downloading media group with 2 items.
+[07:24:57 AM - INFO] - Finished Processing: Media Group
+[07:25:03 AM - INFO] - Downloading media group with 4 items.
+[07:25:28 AM - INFO] - Finished Processing: Media Group
+[07:25:33 AM - INFO] - Downloading media: 237.jpg (Size: 125.94 KB)
+[07:25:38 AM - INFO] - Uploading media: 237.jpg (Size: 125.94 KB)
+[07:25:41 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/237
+[07:25:46 AM - INFO] - Downloading media: 238.jpg (Size: 148.32 KB)
+[07:25:49 AM - INFO] - Uploading media: 238.jpg (Size: 148.32 KB)
+[07:25:52 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/238
+[07:25:57 AM - INFO] - Downloading media: 239.jpg (Size: 86.85 KB)
+[07:26:00 AM - INFO] - Uploading media: 239.jpg (Size: 86.85 KB)
+[07:26:05 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/239
+[07:26:10 AM - INFO] - Downloading media: 240.jpg (Size: 197.30 KB)
+[07:26:13 AM - INFO] - Uploading media: 240.jpg (Size: 197.30 KB)
+[07:26:17 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/240
+[07:26:22 AM - INFO] - Downloading media: 241.jpg (Size: 146.76 KB)
+[07:26:25 AM - INFO] - Uploading media: 241.jpg (Size: 146.76 KB)
+[07:26:30 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/241
+[07:26:35 AM - INFO] - Downloading media: 242.jpg (Size: 99.46 KB)
+[07:26:39 AM - INFO] - Uploading media: 242.jpg (Size: 99.46 KB)
+[07:26:44 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/242
+[07:26:49 AM - INFO] - Downloading media: 243.jpg (Size: 125.95 KB)
+[07:26:52 AM - INFO] - Uploading media: 243.jpg (Size: 125.95 KB)
+[07:26:58 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/243
+[07:27:03 AM - INFO] - Downloading media: 244.jpg (Size: 119.61 KB)
+[07:27:06 AM - INFO] - Uploading media: 244.jpg (Size: 119.61 KB)
+[07:27:12 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/244
+[07:27:17 AM - INFO] - Downloading media: 245.jpg (Size: 167.64 KB)
+[07:27:20 AM - INFO] - Uploading media: 245.jpg (Size: 167.64 KB)
+[07:27:24 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/245
+[07:27:29 AM - INFO] - Downloading media: 247.jpg (Size: 167.03 KB)
+[07:27:32 AM - INFO] - Uploading media: 247.jpg (Size: 167.03 KB)
+[07:27:36 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/247
+[07:27:41 AM - INFO] - Downloading media: 248.jpg (Size: 99.97 KB)
+[07:27:44 AM - INFO] - Uploading media: 248.jpg (Size: 99.97 KB)
+[07:27:52 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/248
+[07:27:57 AM - INFO] - Downloading media: 249.jpg (Size: 127.28 KB)
+[07:28:01 AM - INFO] - Uploading media: 249.jpg (Size: 127.28 KB)
+[07:28:05 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/249
+[07:28:10 AM - INFO] - Downloading media: 250.jpg (Size: 144.62 KB)
+[07:28:14 AM - INFO] - Uploading media: 250.jpg (Size: 144.62 KB)
+[07:28:19 AM - INFO] - Finished Processing: https://t.me/asupanlokalpridee/250
+[07:28:25 AM - INFO] - Batch Process Completed | Total: 25 | Skipped: 13 | Failed: 0
+[07:36:30 AM - INFO] - Stop signal received (SIGINT). Exiting...
+[07:36:30 AM - INFO] - Stop signal received (SIGINT). Exiting...
+[07:36:30 AM - INFO] - Bot Stopped.
